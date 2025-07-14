@@ -1,0 +1,40 @@
+void merge(vector<int>& arr, int l, int mid, int r) {
+    // Create temporary arrays
+    vector<int> part1(arr.begin() + l, arr.begin() + mid + 1);
+    vector<int> part2(arr.begin() + mid + 1, arr.begin() + r + 1);
+
+    int i = 0, j = 0, k = l;
+
+    // Merge the temp arrays back into arr[left..right]
+    while (i < part1.size() && j < part2.size()) {
+        if (part1[i] <= part2[j]) {
+            arr[k++] = part1[i++];
+        } else {
+            arr[k++] = part2[j++];
+        }
+    }
+
+    // Copy remaining elements of leftArr (if any)
+    while (i < part1.size()) {
+        arr[k++] = part1[i++];
+    }
+
+    // Copy remaining elements of rightArr (if any)
+    while (j < part2.size()) {
+        arr[k++] = part2[j++];
+    }
+}
+
+void mergeSortHelper(vector<int>& arr, int l, int r) {
+    if (l >= r) return;
+
+    int mid = l + (r - l) / 2;
+    mergeSortHelper(arr, l, mid);
+    mergeSortHelper(arr, mid + 1, r);
+    merge(arr, l, mid, r);
+}
+
+void mergeSort(vector<int>& arr) {
+	int n=arr.size();
+    mergeSortHelper(arr, 0, n - 1);
+}
