@@ -1,0 +1,42 @@
+//hashmap
+
+int findDuplicate(vector<int>& nums) {
+        unordered_map<int,int> freq;
+
+        for(int num: nums){
+            freq[num]++;
+            if(freq[num]>=2){
+                return num;
+            }
+        }
+        return -1;
+    }
+
+///fast-slow pointer 
+    int findDuplicate(vector<int>& nums) {
+        int slow=0,fast=0;
+        do{
+            slow=nums[slow];
+            fast=nums[nums[fast]];
+        }while(slow!=fast);
+
+        slow=0;
+        while(slow!=fast){
+            slow=nums[slow];
+            fast=nums[fast];
+        }
+        return slow;
+    }
+
+//sort and then swapping
+    int findDuplicate(vector<int>& nums) {
+        int i=0;
+        sort(nums.begin(),nums.end());
+        while(i<=nums.size()){
+            if(nums[i]==nums[i+1]){
+                return nums[i];
+            }
+            i++;
+        }
+        return -1;
+    }
