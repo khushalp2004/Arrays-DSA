@@ -1,0 +1,12 @@
+vector<int> getSquareSortedArray(vector<int> &arr) {
+    vector<int> squared_vector;
+	int n=arr.size();
+	for(int i=0;i<n;i++){
+		int squared=arr[i]*arr[i];
+		squared_vector.push_back(squared);
+	}
+	
+	sort(squared_vector.begin(),squared_vector.end());
+	
+	return squared_vector;
+}
