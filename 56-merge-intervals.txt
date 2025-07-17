@@ -1,0 +1,16 @@
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        ///extra space of ans vector is used
+       int n=intervals.size();
+        sort(intervals.begin(),intervals.end());
+        int resIndex=0;
+        
+        for(int i=1;i<n;i++){
+            if(intervals[resIndex][1]>=intervals[i][0]){
+                intervals[resIndex][1]=max(intervals[resIndex][1],intervals[i][1]);
+            }else{
+                resIndex++;
+                intervals[resIndex]=intervals[i];
+            }
+        }
+        return vector<vector<int>>(intervals.begin(),intervals.begin()+resIndex+1);
+    }

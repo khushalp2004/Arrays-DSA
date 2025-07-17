@@ -1,0 +1,18 @@
+vector<int> primesUptoN(int N) {
+    vector<bool> isPrime(N + 1, true);
+    isPrime[0] = isPrime[1] = false;
+
+    for (int p = 2; p * p <= N; ++p) {
+        if (isPrime[p]) {
+            for (int i = p * p; i <= N; i += p) {
+                isPrime[i] = false;
+            }
+        }
+    }
+
+    vector<int> primes;
+    for (int i = 2; i <= N; ++i) {
+        if (isPrime[i]) primes.push_back(i);
+    }
+    return primes;
+}
