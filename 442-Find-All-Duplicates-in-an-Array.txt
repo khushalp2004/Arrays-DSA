@@ -1,0 +1,57 @@
+//easiest method-1
+//using hash map O(N) and O(N)
+vector<int> findDuplicates(vector<int>& nums) {
+        
+        int n=nums.size();
+        unordered_map<int,int> freq;
+        vector<int> result;
+
+        for(int num: nums){
+            freq[num]++;
+        }
+        for(auto &num: freq){
+            if(num.second==2){
+                result.push_back(num.first);
+            }
+        }
+        return result;
+    }
+
+//method-2(difficult)
+//in-place sign marking O(N) and O(1)
+vector<int> findDuplicates(vector<int>& nums){
+        vector<int> result;
+
+        for(int num: nums){
+            int index=abs(num)-1;
+            if(nums[index]<0){
+                result.push_back(abs(num));
+            }else{
+                nums[index]=-nums[index];
+            }
+        }
+        return result;
+    }
+
+    //method-3
+    //cyclic sort (more difficult required critical thinking)
+    vector<int> findDuplicates(vector<int>& nums){
+        vector<int> result;
+        int n=nums.size();
+        for(int i=0;i<n;){
+            int correctIndex=nums[i]-1;
+            if(nums[i]!=nums[correctIndex]){
+                swap(nums[i],nums[correctIndex]);
+            }else{
+                i++;
+            }
+        }
+
+        for(int i=0;i<n;i++){
+            if(nums[i]!=i+1){
+                result.push_back(nums[i]);
+            }
+        }
+
+        return result;
+    }
