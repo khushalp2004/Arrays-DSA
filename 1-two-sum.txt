@@ -1,0 +1,46 @@
+////two sum
+//method-1
+//vector<pair>> then store nums and its index and then sort the vector<pair>> then apply two pointer
+vector<int> twoSum(vector<int>& nums, int target) {
+        int n=nums.size();
+        vector<pair<int,int>> saved;
+        //input into the vector num-numIndex
+        for(int i=0;i<n;i++){
+            saved.emplace_back(nums[i],i);
+        }
+
+        sort(saved.begin(),saved.end());
+
+        ///apply two pointer now
+        int start=0,end=n-1;
+        while(start<end){
+            int sum=saved[start].first+saved[end].first;
+
+            if(sum==target){
+                return {saved[start].second,saved[end].second};
+            }
+            else if(sum>target){
+                end--;
+            }
+            else{
+                start++;
+            }
+        }
+
+        return {};
+    }
+
+
+    //method-2
+    //hash map
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int,int> seen;
+        for(int i=0;i<nums.size();i++){
+            int val=target-nums[i];
+            if(seen.count(val)){
+                return {seen[val],i};
+            }
+            seen[nums[i]]=i;
+        }
+        return {};
+    }
